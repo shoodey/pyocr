@@ -1,0 +1,7 @@
+[project]
+name = "pyocr"
+version = "0.1.0"
+description = "Playing around with OCR"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
