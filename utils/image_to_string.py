@@ -18,13 +18,15 @@ def image_to_string(image_path: str, dataset: str | None = None, timeout: int | 
         return text
     except FileNotFoundError:
         print(f"❌ Image file not found at {image_path}")
+        return None
     except pytesseract.TesseractNotFoundError:
         print("❌ Tesseract is not installed")
+        return None
     except TimeoutError:
         print(f"❌ Timeout after {timeout} seconds")
+        return None
     except Exception as e:
         print(f"❌ {e}")
-    finally:
         return None
 
 

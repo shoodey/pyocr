@@ -11,3 +11,6 @@ wheels/
 
 # Lockfile
 uv.lock
+
+# Output - let the user generate their own files
+output/
