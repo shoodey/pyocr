@@ -1,13 +1,19 @@
+import arabic_reshaper
 import pytesseract
 from PIL import Image
-from . import config
-import arabic_reshaper
 from bidi.algorithm import get_display
 
-def image_to_string(image_path: str, timeout: int = 3) -> str | None:
+from .config import config
+
+def image_to_string(image_path: str, dataset: str | None = None, timeout: int | None = None) -> str | None:
+    if dataset is None:
+        dataset = config.datasets
+    if timeout is None:
+        timeout = config.timeout
+    
     try:
         image = Image.open(image_path) # Is this really needed? Tesseract can accept a file path directly
-        text = pytesseract.image_to_string(image, lang=config.languages, timeout=timeout).strip()
+        text = pytesseract.image_to_string(image, lang=dataset, timeout=timeout).strip()
         debug_image_to_string(image_path, text)
         return text
     except FileNotFoundError:
@@ -23,7 +29,7 @@ def image_to_string(image_path: str, timeout: int = 3) -> str | None:
 
 
 def debug_image_to_string(image_path: str, text: str):
-    if not config.is_debug_enabled: return
+    if not config.debug: return
 
     header = f"Processing {image_path}"
     divider = f"{'='*len(header)}"
