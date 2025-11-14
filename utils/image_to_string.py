@@ -5,7 +5,7 @@ from . import config
 def image_to_string(image_path: str, timeout: int = 3) -> str | None:
     try:
         image = Image.open(image_path) # Is this really needed? Tesseract can accept a file path directly
-        text = pytesseract.image_to_string(image, timeout=timeout).strip()
+        text = pytesseract.image_to_string(image, lang=config.languages, timeout=timeout).strip()
         debug_image_to_string(image_path, text)
         return text
     except FileNotFoundError:
